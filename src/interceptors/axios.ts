@@ -52,10 +52,11 @@ mock.onGet(`/characters`).reply(200, mockCharacters)
 
 mock.onPost(`/characters`).reply((config) => {
   const characterData: Character = JSON.parse(config.data)
+  const formattedCharacter = { ...characterData, id: mockCharacters.length + 1 }
 
-  mockCharacters.push(characterData)
+  mockCharacters.push(formattedCharacter)
 
-  return [200, mockCharacters]
+  return [200, formattedCharacter]
 })
 
 mock.onPut(/\/characters\/\d+/).reply((config) => {
